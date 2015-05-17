@@ -5,10 +5,10 @@ package com.zed.bagofood.repository;
  */
 
 import com.zed.bagofood.model.Item;
+import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ItemRepository extends CrudRepository<Item, Integer> {
+public interface ItemRepository extends CrudRepository<Item, String> {
 
 }

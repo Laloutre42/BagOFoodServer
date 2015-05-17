@@ -5,13 +5,13 @@ package com.zed.bagofood.repository;
  */
 
 import com.zed.bagofood.model.Foodlist;
+import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface FoodListRepository extends CrudRepository<Foodlist, Integer> {
+public interface FoodListRepository extends CrudRepository<Foodlist, String> {
 
-    List<Foodlist> findByUser_Id(int userId);
+    List<Foodlist> findByUser_Id(String userId);
 }
