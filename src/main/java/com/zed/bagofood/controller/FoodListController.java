@@ -96,6 +96,7 @@ public class FoodListController {
     @RequestMapping(value = "/{id}/items/{itemId}", method = RequestMethod.POST)
     public Foodlist updateItemOnFoodList(@PathVariable String id, @PathVariable String itemId, @Valid @RequestBody Item item) {
 
+        // Todo : refactor en Stream
         int index = -1;
         Foodlist foodList = foodListRepository.findOne(id);
         for (int i = 0; i < foodList.getItemList().size(); i++) {
@@ -124,6 +125,7 @@ public class FoodListController {
     @RequestMapping(value = "/{id}/items/{itemId}", method = RequestMethod.DELETE)
     public Foodlist deleteItemOnFoodList(@PathVariable String id, @PathVariable String itemId) {
 
+        // Todo : refactor en Stream
         int index = -1;
         Foodlist foodList = foodListRepository.findOne(id);
         for (int i = 0; i < foodList.getItemList().size(); i++) {
