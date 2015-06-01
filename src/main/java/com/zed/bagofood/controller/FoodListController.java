@@ -47,7 +47,12 @@ public class FoodListController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public Foodlist addOrUpdateFoodList(@Valid @RequestBody Foodlist foodList) {
+    public Foodlist addFoodList(@Valid @RequestBody Foodlist foodList) {
+        return foodListRepository.save(foodList);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public Foodlist updateFoodList(@Valid @RequestBody Foodlist foodList) {
         return foodListRepository.save(foodList);
     }
 

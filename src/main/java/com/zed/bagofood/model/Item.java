@@ -14,16 +14,7 @@ public class Item {
     private Category category;
     private Integer energyFor100;
     private Integer weight;
+    private String catalog;
     private String productId;
 
-    protected Item() {
-    }
-
-    public Item(String name, Category category, Integer energyFor100, Integer weight, String productId) {
-        this.name = name;
-        this.category = category;
-        this.energyFor100 = energyFor100;
-        this.weight = weight;
-        this.productId = productId;
-    }
 }

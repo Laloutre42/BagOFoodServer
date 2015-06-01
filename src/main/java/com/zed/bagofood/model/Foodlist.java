@@ -23,12 +23,4 @@ public class Foodlist {
     private User user;
     private List<Item> itemList = new ArrayList<>(0);
 
-    protected Foodlist() {
-    }
-
-    public Foodlist(User user, String name, String description) {
-        this.user = user;
-        this.name = name;
-        this.description = description;
-    }
 }

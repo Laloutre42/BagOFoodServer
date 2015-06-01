@@ -10,6 +10,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 public interface ProductRepository extends CrudRepository<Product, String> {
 
+    List<Product> findFirst100ByOrigfdnmLikeIgnoreCaseOrderByOrigfdnmAsc(String origfdnm);
 }

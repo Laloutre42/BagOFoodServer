@@ -5,8 +5,6 @@ package com.zed.bagofood;
  */
 
 import com.zed.bagofood.model.Product;
-import com.zed.bagofood.repository.FoodListRepository;
-import com.zed.bagofood.repository.UserRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,10 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Stream;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -42,22 +37,28 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
-        insertDataFromCiqualCsv();
-
+        //insertDataFromCiqualCsv();
     }
 
+    /**
+     * Import data from a CSV file Ciqual_2012
+     */
     private void insertDataFromCiqualCsv() {
 
-        Path path = Paths.get("F:/DEV/ProjectJs/BagOFoodGulp/data/Ciqual_2012/input.csv");
+        // Delete old values
+        mongoTemplate.dropCollection(Product.class);
 
+        Path path = Paths.get("F:/DEV/ProjectJs/BagOFoodGulp/data/Ciqual_2012/input.csv");
         try (BufferedReader reader = Files.newBufferedReader(path)) {
-            Product product = Product.createProduct(Arrays.asList(reader.readLine().split(",")));
-            logger.info(product.toString());
-            // Insert is used to initially store the object into the database.
-            mongoTemplate.insert(product);
-            logger.info("Insert: " + product);
-        }
-        catch (IOException e) {
+
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                Product product = Product.createProduct(Arrays.asList(line.split(",")));
+                mongoTemplate.insert(product);
+                logger.info("Insert: " + product);
+            }
+
+        } catch (IOException e) {
             logger.error("IOException", e);
         }
     }

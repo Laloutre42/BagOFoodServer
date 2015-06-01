@@ -15,7 +15,7 @@ public class Product {
 
     @Id
     private String id;
-    private int origgpcd;
+    private double origgpcd;
     private String origgpfr;
     private int origfdcd;
     private String origfdnm;
@@ -28,8 +28,8 @@ public class Product {
     private double fer_mg_100g;
     private double cuivre_mg_100g;
     private double zinc_mg_100g;
-    private double selenium_µg_100g;
-    private double iode_µg_100g;
+    private double selenium_ug_100g;
+    private double iode_ug_100g;
     private double proteines_g_100g;
     private double proteines_brutes_n_x_6_25_g_100g;
     private double glucides_g_100g;
@@ -47,7 +47,7 @@ public class Product {
     private double ag_monoinsatures_g_100g;
     private double ag_polyinsatures_g_100g;
     private double ag_4_0_butyrique_g_100g;
-    private double ag_6_0_caproïque_g_100g;
+    private double ag_6_0_caproique_g_100g;
     private double ag_8_0_caprylique_g_100g;
     private double ag_10_0_caprique_g_100g;
     private double ag_12_0_laurique_g_100g;
@@ -60,19 +60,19 @@ public class Product {
     private double ag_20_4_5c_8c_11c_14c_n_6_arachidonique_g_100g;
     private double ag_20_5_5c_8c_11c_14c_17c_n_3_epa_g_100g;
     private double ag_22_6_4c_7c_10c_13c_16c_19c_n_3_dha_g_100g;
-    private double retinol_µg_100g;
-    private double beta_carotene_µg_100g;
-    private double vitamine_d_µg_100g;
+    private double retinol_ug_100g;
+    private double beta_carotene_ug_100g;
+    private double vitamine_d_ug_100g;
     private double vitamine_e_mg_100g;
-    private double vitamine_k_µg_100g;
+    private double vitamine_k_ug_100g;
     private double vitamine_c_mg_100g;
     private double vitamine_b1_ou_thiamine_mg_100g;
     private double vitamine_b2_ou_riboflavine_mg_100g;
     private double vitamine_b3_ou_pp_ou_niacine_mg_100g;
     private double vitamine_b5_ou_acide_pantothenique_mg_100g;
     private double vitamine_b6_mg_100g;
-    private double vitamine_b12_µg_100g;
-    private double vitamine_b9_ou_folates_totaux_µg_100g;
+    private double vitamine_b12_ug_100g;
+    private double vitamine_b9_ou_folates_totaux_ug_100g;
     private double alcool_g_100g;
     private double acides_organiques_g_100g;
     private double cholesterol_mg_100g;
@@ -91,7 +91,7 @@ public class Product {
         int i=0;
         Product p = new Product();
 
-        p.setOriggpcd(Product.parseInt(listFields.get(i++)));
+        p.setOriggpcd(Product.parseDouble(listFields.get(i++)));
         p.setOriggpfr(listFields.get(i++));
         p.setOrigfdcd(Product.parseInt(listFields.get(i++)));
         p.setOrigfdnm(listFields.get(i++));
@@ -105,8 +105,8 @@ public class Product {
         p.setFer_mg_100g(Product.parseDouble(listFields.get(i++)));
         p.setCuivre_mg_100g(Product.parseDouble(listFields.get(i++)));
         p.setZinc_mg_100g(Product.parseDouble(listFields.get(i++)));
-        p.setSelenium_µg_100g(Product.parseDouble(listFields.get(i++)));
-        p.setIode_µg_100g(Product.parseDouble(listFields.get(i++)));
+        p.setSelenium_ug_100g(Product.parseDouble(listFields.get(i++)));
+        p.setIode_ug_100g(Product.parseDouble(listFields.get(i++)));
         p.setProteines_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setProteines_brutes_n_x_6_25_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setGlucides_g_100g(Product.parseDouble(listFields.get(i++)));
@@ -124,7 +124,7 @@ public class Product {
         p.setAg_monoinsatures_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setAg_polyinsatures_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setAg_4_0_butyrique_g_100g(Product.parseDouble(listFields.get(i++)));
-        p.setAg_6_0_caproïque_g_100g(Product.parseDouble(listFields.get(i++)));
+        p.setAg_6_0_caproique_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setAg_8_0_caprylique_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setAg_10_0_caprique_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setAg_12_0_laurique_g_100g(Product.parseDouble(listFields.get(i++)));
@@ -137,19 +137,19 @@ public class Product {
         p.setAg_20_4_5c_8c_11c_14c_n_6_arachidonique_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setAg_20_5_5c_8c_11c_14c_17c_n_3_epa_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setAg_22_6_4c_7c_10c_13c_16c_19c_n_3_dha_g_100g(Product.parseDouble(listFields.get(i++)));
-        p.setRetinol_µg_100g(Product.parseDouble(listFields.get(i++)));
-        p.setBeta_carotene_µg_100g(Product.parseDouble(listFields.get(i++)));
-        p.setVitamine_d_µg_100g(Product.parseDouble(listFields.get(i++)));
+        p.setRetinol_ug_100g(Product.parseDouble(listFields.get(i++)));
+        p.setBeta_carotene_ug_100g(Product.parseDouble(listFields.get(i++)));
+        p.setVitamine_d_ug_100g(Product.parseDouble(listFields.get(i++)));
         p.setVitamine_e_mg_100g(Product.parseDouble(listFields.get(i++)));
-        p.setVitamine_k_µg_100g(Product.parseDouble(listFields.get(i++)));
+        p.setVitamine_k_ug_100g(Product.parseDouble(listFields.get(i++)));
         p.setVitamine_c_mg_100g(Product.parseDouble(listFields.get(i++)));
         p.setVitamine_b1_ou_thiamine_mg_100g(Product.parseDouble(listFields.get(i++)));
         p.setVitamine_b2_ou_riboflavine_mg_100g(Product.parseDouble(listFields.get(i++)));
         p.setVitamine_b3_ou_pp_ou_niacine_mg_100g(Product.parseDouble(listFields.get(i++)));
         p.setVitamine_b5_ou_acide_pantothenique_mg_100g(Product.parseDouble(listFields.get(i++)));
         p.setVitamine_b6_mg_100g(Product.parseDouble(listFields.get(i++)));
-        p.setVitamine_b12_µg_100g(Product.parseDouble(listFields.get(i++)));
-        p.setVitamine_b9_ou_folates_totaux_µg_100g(Product.parseDouble(listFields.get(i++)));
+        p.setVitamine_b12_ug_100g(Product.parseDouble(listFields.get(i++)));
+        p.setVitamine_b9_ou_folates_totaux_ug_100g(Product.parseDouble(listFields.get(i++)));
         p.setAlcool_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setAcides_organiques_g_100g(Product.parseDouble(listFields.get(i++)));
         p.setCholesterol_mg_100g(Product.parseDouble(listFields.get(i++)));
