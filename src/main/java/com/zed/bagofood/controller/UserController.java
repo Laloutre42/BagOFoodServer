@@ -1,20 +1,15 @@
 package com.zed.bagofood.controller;
 
+import com.zed.bagofood.model.Product;
 import com.zed.bagofood.model.User;
+import com.zed.bagofood.repository.ProductRepository;
 import com.zed.bagofood.repository.UserRepository;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-import static org.springframework.data.mongodb.core.query.Update.update;
-import static org.springframework.data.mongodb.core.query.Query.query;
-
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -24,7 +19,7 @@ import java.util.stream.StreamSupport;
  */
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     /**
@@ -35,29 +30,24 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<User> getAllUser() {
-        return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public User login(@RequestBody User user) {
+
+        User userInDb = userRepository.findByNameAndPassword(user.getName(), user.getPassword());
+        if (userInDb == null){
+            throw new InternalError("Invalid user name or password");
+        }
+        else {
+            return userInDb;
+        }
     }
 
-    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
-    public java.util.Collection<User> getUserByName(@PathVariable String name) {
-        return userRepository.findByName(name);
-    }
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    public User signUp(@Valid @RequestBody User user) {
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public User getUserById(@PathVariable String id) {
-        return userRepository.findOne(id);
-    }
-
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public User addOrUpdateUser(@Valid @RequestBody User user) {
+        if ((user.getId() != null && userRepository.exists(user.getId())) || (userRepository.findByName(user.getName()) != null)){
+            throw new InternalError("User already exist");
+        }
         return userRepository.save(user);
     }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void deleteUser(@PathVariable String id) {
-        userRepository.delete(id);
-    }
-
 }

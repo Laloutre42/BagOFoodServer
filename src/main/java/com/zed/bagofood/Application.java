@@ -5,6 +5,8 @@ package com.zed.bagofood;
  */
 
 import com.zed.bagofood.model.Product;
+import com.zed.bagofood.model.User;
+import com.zed.bagofood.model.UserRole;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -38,6 +40,7 @@ public class Application implements CommandLineRunner {
     public void run(String... strings) throws Exception {
 
         //insertDataFromCiqualCsv();
+        insertUsers();
     }
 
     /**
@@ -61,6 +64,27 @@ public class Application implements CommandLineRunner {
         } catch (IOException e) {
             logger.error("IOException", e);
         }
+    }
+
+    /**
+     * Add users
+     */
+    private void insertUsers() {
+
+        // Delete old values
+        mongoTemplate.dropCollection(User.class);
+
+
+        User user = new User();
+        user.setName("Arnaud");
+        user.setPassword("password");
+        user.setEmail("Laloutre42@gmail.com");
+        user.setRole(UserRole.ADMIN);
+
+        mongoTemplate.insert(user);
+        logger.info("Insert: " + user);
+
+
     }
 
 }

@@ -5,16 +5,12 @@ package com.zed.bagofood.repository;
  */
 
 import com.zed.bagofood.model.User;
-import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-
-import java.math.BigInteger;
-import java.util.Collection;
 
 public interface UserRepository extends CrudRepository<User, String> {
 
-    Collection<User> findByName(String name);
-
+    User findByNameAndPassword(String name, String password);
+    User findByName(String name);
 
 }

@@ -20,7 +20,7 @@ import java.util.stream.StreamSupport;
  */
 
 @RestController
-@RequestMapping("/foodlist")
+@RequestMapping("/api/foodlist")
 public class FoodListController {
 
     /**
@@ -67,11 +67,11 @@ public class FoodListController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/{id}/items", method = RequestMethod.GET)
-    public List<Item> getFoodListItemsById(@PathVariable String id) {
-        Foodlist foodlist = foodListRepository.findOne(id);
-        return (foodlist == null) ? new ArrayList<Item>(0) : foodlist.getItemList();
-    }
+//    @RequestMapping(value = "/{id}/items", method = RequestMethod.GET)
+//    public List<Item> getFoodListItemsById(@PathVariable String id) {
+//        Foodlist foodlist = foodListRepository.findOne(id);
+//        return (foodlist == null) ? new ArrayList<Item>(0) : foodlist.getItemList();
+//    }
 
     /**
      * Add item on food list id

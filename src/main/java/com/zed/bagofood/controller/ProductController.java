@@ -19,7 +19,7 @@ import java.util.stream.StreamSupport;
  */
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/api/product")
 public class ProductController {
 
     /**
@@ -33,6 +33,11 @@ public class ProductController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Product> getAllProduct() {
         return StreamSupport.stream(productRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Product getProductById(@PathVariable String id) {
+        return productRepository.findOne(id);
     }
 
     @RequestMapping(value = "/origfdnm/{origfdnm}", method = RequestMethod.GET)
