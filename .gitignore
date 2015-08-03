@@ -81,7 +81,11 @@ local.properties
 .buildpath
 
 # sbteclipse plugin
-.target
+.target/
 
 # TeXlipse plugin
 .texlipse
+
+# Target and class
+./target/**
+*.class

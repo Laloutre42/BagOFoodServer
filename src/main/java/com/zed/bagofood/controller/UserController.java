@@ -1,15 +1,18 @@
 package com.zed.bagofood.controller;
 
+import com.zed.bagofood.model.Foodlist;
 import com.zed.bagofood.model.Product;
 import com.zed.bagofood.model.User;
 import com.zed.bagofood.repository.ProductRepository;
 import com.zed.bagofood.repository.UserRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -50,4 +53,9 @@ public class UserController {
         }
         return userRepository.save(user);
     }
+    
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<User> getAllUsers() {
+        return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
+    }    
 }
