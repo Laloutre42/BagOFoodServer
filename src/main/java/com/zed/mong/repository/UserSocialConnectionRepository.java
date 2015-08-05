@@ -15,5 +15,7 @@ public interface UserSocialConnectionRepository extends CrudRepository<UserSocia
 
 	List<UserSocialConnection> findByUserIdAndProviderId(String userId, String providerId);
 
-	UserSocialConnection findByUserIdAndProviderIdAndProviderUserId(String userId, String providerId, String providerUserId);    
+	UserSocialConnection findByUserIdAndProviderIdAndProviderUserId(String userId, String providerId, String providerUserId);
+
+	List<UserSocialConnection> findByUserId(String userId);    
 }
