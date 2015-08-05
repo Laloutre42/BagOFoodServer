@@ -13,8 +13,11 @@ import org.springframework.social.connect.UserProfile;
  */
 public class UserConnectionSignUp implements ConnectionSignUp {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserConnectionSignUp(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public String execute(Connection<?> connection) {
         UserProfile profile = connection.fetchUserProfile();

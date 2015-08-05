@@ -1,10 +1,8 @@
 package com.zed.mong.repository;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import com.zed.bagofood.repository.UserSocialConnectionRepository;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
@@ -15,8 +13,6 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.DuplicateConnectionException;
 import org.springframework.social.connect.NoSuchConnectionException;
 import org.springframework.social.connect.NotConnectedException;
-import org.springframework.social.security.provider.SocialAuthenticationService;
-import org.springframework.social.security.provider.SocialAuthenticationService.ConnectionCardinality;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
@@ -77,20 +73,22 @@ public class MongoConnectionRepository implements ConnectionRepository {
 
 	// TODO to check
 	@Override
-	public MultiValueMap<String, Connection<?>> findConnectionsToUsers(MultiValueMap<String, String> providerUserIds) {
+	public MultiValueMap<String, Connection<?>> findConnectionsToUsers(MultiValueMap<String, String> providerUsers) {
+
         if (providerUsers == null || providerUsers.isEmpty()) {
             throw new IllegalArgumentException("Unable to execute find: no providerUsers provided");
         }
 
         MultiValueMap<String, Connection<?>> connectionsForUsers = new LinkedMultiValueMap<String, Connection<?>>();
         
-        for (Iterator<Entry<String, List<String>>> it = providerUsers.entrySet().iterator(); it.hasNext();) {
-            Entry<String, List<String>> entry = it.next();
+        for (Iterator<Map.Entry<String, List<String>>> it = providerUsers.entrySet().iterator(); it.hasNext();) {
+
+            Map.Entry<String, List<String>> entry = it.next();
             String providerId = entry.getKey();
             List<String> providerUserIds = entry.getValue();
-            List<UserSocialConnection> userSocialConnections = 
-                    this.userSocialConnectionRepository.findByProviderIdAndProviderUserIdIn(providerId, providerUserIds);
+            List<UserSocialConnection> userSocialConnections = this.userSocialConnectionRepository.findByProviderIdAndProviderUserIdIn(providerId, providerUserIds);
             List<Connection<?>> connections = new ArrayList<Connection<?>>(providerUserIds.size());
+
             for (int i = 0; i < providerUserIds.size(); i++) {
                 connections.add(null);
             }
@@ -101,7 +99,6 @@ public class MongoConnectionRepository implements ConnectionRepository {
                 int connectionIndex = providerUserIds.indexOf(providerUserId);
                 connections.set(connectionIndex, buildConnection(userSocialConnection));
             }
-
         }
         return connectionsForUsers;
 	}
@@ -143,30 +140,26 @@ public class MongoConnectionRepository implements ConnectionRepository {
 
 	// TODO to check
 	@Override
-	public void addConnection(Connection<?> connection) {
-        //check cardinality
-        SocialAuthenticationService<?> socialAuthenticationService = this.connectionFactoryLocator.getAuthenticationService(connection.getKey().getProviderId());
-        if (socialAuthenticationService.getConnectionCardinality() == ConnectionCardinality.ONE_TO_ONE ||
-                socialAuthenticationService.getConnectionCardinality() == ConnectionCardinality.ONE_TO_MANY){
-            List<UserSocialConnection> storedConnections = 
-                    this.userSocialConnectionRepository.findByProviderIdAndProviderUserId(connection.getKey().getProviderId(), connection.getKey().getProviderUserId());
-            if (storedConnections.size() > 0){
-                //not allow one providerId connect to multiple userId
-                throw new DuplicateConnectionException(connection.getKey());
-            }
+    public void addConnection(Connection<?> connection) {
+
+        List<UserSocialConnection> storedConnections =
+                this.userSocialConnectionRepository.findByProviderIdAndProviderUserId(connection.getKey().getProviderId(), connection.getKey().getProviderUserId());
+        if (storedConnections.size() > 0) {
+            //not allow one providerId connect to multiple userId
+            throw new DuplicateConnectionException(connection.getKey());
         }
-        
-        UserSocialConnection userSocialConnection = this.userSocialConnectionRepository.findByUserIdAndProviderIdAndProviderUserId(userId, connection.getKey().getProviderId(), 
-                        connection.getKey().getProviderUserId());
+
+        UserSocialConnection userSocialConnection = this.userSocialConnectionRepository.findByUserIdAndProviderIdAndProviderUserId(userId, connection.getKey().getProviderId(),
+                connection.getKey().getProviderUserId());
         if (userSocialConnection == null) {
             ConnectionData data = connection.createData();
-            userSocialConnection = new UserSocialConnection(userId, data.getProviderId(), data.getProviderUserId(), 0, data.getDisplayName(), data.getProfileUrl(), data.getImageUrl(), encrypt(data.getAccessToken()),
-                    encrypt(data.getSecret()), encrypt(data.getRefreshToken()), data.getExpireTime());
+            userSocialConnection = new UserSocialConnection(userId, data.getProviderId(), data.getProviderUserId(), 0, data.getDisplayName(),
+                    data.getProfileUrl(), data.getImageUrl(), encrypt(data.getAccessToken()), encrypt(data.getSecret()), encrypt(data.getRefreshToken()), data.getExpireTime());
             this.userSocialConnectionRepository.save(userSocialConnection);
         } else {
             throw new DuplicateConnectionException(connection.getKey());
         }
-	}
+    }
 
 	@Override
 	public void updateConnection(Connection<?> connection) {
