@@ -1,9 +1,12 @@
 package com.zed.bagofood.controller;
 
 import com.zed.bagofood.repository.UserRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,16 +28,17 @@ public class FacebookController {
     private static final Logger logger = LoggerFactory.getLogger(FacebookController.class);
 
     @Inject
-    private Facebook facebook;
-
+    Facebook facebook;
+	
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String getUserName() {
-        if (facebook != null && (facebook.userOperations() != null)){
-            return facebook.userOperations().getUserProfile().getName();
+    	    	
+        if (facebook == null){
+            logger.debug("Redirect to log in");
+            return "";            
         }
         else{
-            logger.debug("Redirect to log in");
-            return "";
+            return "name: "+facebook.userOperations().getUserProfile().getName() + "mail: "+facebook.userOperations().getUserProfile().getEmail();        	
         }
     }
 }

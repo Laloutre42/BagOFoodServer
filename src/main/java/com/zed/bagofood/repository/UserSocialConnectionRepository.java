@@ -1,11 +1,11 @@
-package com.zed.mong.repository;
+package com.zed.bagofood.repository;
 
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.zed.mong.model.UserSocialConnection;
+import com.zed.bagofood.model.UserSocialConnection;
 
 public interface UserSocialConnectionRepository extends CrudRepository<UserSocialConnection, String> {
 	

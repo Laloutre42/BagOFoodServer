@@ -1,8 +1,11 @@
 package com.zed.mong.repository;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.springframework.security.crypto.encrypt.TextEncryptor;
@@ -15,12 +18,11 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.DuplicateConnectionException;
 import org.springframework.social.connect.NoSuchConnectionException;
 import org.springframework.social.connect.NotConnectedException;
-import org.springframework.social.security.provider.SocialAuthenticationService;
-import org.springframework.social.security.provider.SocialAuthenticationService.ConnectionCardinality;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.zed.mong.model.UserSocialConnection;
+import com.zed.bagofood.model.UserSocialConnection;
+import com.zed.bagofood.repository.UserSocialConnectionRepository;
 
 public class MongoConnectionRepository implements ConnectionRepository {
 
@@ -69,6 +71,7 @@ public class MongoConnectionRepository implements ConnectionRepository {
         return resultList;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <A> List<Connection<A>> findConnections(Class<A> apiType) {
         List<?> connections = findConnections(getProviderId(apiType));
@@ -77,7 +80,8 @@ public class MongoConnectionRepository implements ConnectionRepository {
 
 	// TODO to check
 	@Override
-	public MultiValueMap<String, Connection<?>> findConnectionsToUsers(MultiValueMap<String, String> providerUserIds) {
+	public MultiValueMap<String, Connection<?>> findConnectionsToUsers(MultiValueMap<String, String> providerUsers) {
+		
         if (providerUsers == null || providerUsers.isEmpty()) {
             throw new IllegalArgumentException("Unable to execute find: no providerUsers provided");
         }
@@ -144,16 +148,12 @@ public class MongoConnectionRepository implements ConnectionRepository {
 	// TODO to check
 	@Override
 	public void addConnection(Connection<?> connection) {
-        //check cardinality
-        SocialAuthenticationService<?> socialAuthenticationService = this.connectionFactoryLocator.getAuthenticationService(connection.getKey().getProviderId());
-        if (socialAuthenticationService.getConnectionCardinality() == ConnectionCardinality.ONE_TO_ONE ||
-                socialAuthenticationService.getConnectionCardinality() == ConnectionCardinality.ONE_TO_MANY){
-            List<UserSocialConnection> storedConnections = 
-                    this.userSocialConnectionRepository.findByProviderIdAndProviderUserId(connection.getKey().getProviderId(), connection.getKey().getProviderUserId());
-            if (storedConnections.size() > 0){
-                //not allow one providerId connect to multiple userId
-                throw new DuplicateConnectionException(connection.getKey());
-            }
+
+        List<UserSocialConnection> storedConnections = 
+                this.userSocialConnectionRepository.findByProviderIdAndProviderUserId(connection.getKey().getProviderId(), connection.getKey().getProviderUserId());
+        if (storedConnections.size() > 0){
+            //not allow one providerId connect to multiple userId
+            throw new DuplicateConnectionException(connection.getKey());
         }
         
         UserSocialConnection userSocialConnection = this.userSocialConnectionRepository.findByUserIdAndProviderIdAndProviderUserId(userId, connection.getKey().getProviderId(), 
@@ -214,7 +214,11 @@ public class MongoConnectionRepository implements ConnectionRepository {
     private Connection<?> findPrimaryConnection(String providerId) {
         List<UserSocialConnection> userSocialConnectionList = this.userSocialConnectionRepository.findByUserIdAndProviderId(userId, providerId);
 
-        return buildConnection(userSocialConnectionList.get(0));
+		if (userSocialConnectionList.size() > 0) {
+			return buildConnection(userSocialConnectionList.get(0));
+		} else {
+			return null;
+		}		        
     }
 
     private <A> String getProviderId(Class<A> apiType) {

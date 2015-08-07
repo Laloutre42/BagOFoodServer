@@ -1,13 +1,18 @@
 package com.zed.bagofood.config;
 
 import com.zed.bagofood.filter.CsrfHeaderFilter;
+import com.zed.bagofood.repository.UserRepository;
 import com.zed.bagofood.security.SimpleSocialUsersDetailService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -22,6 +27,15 @@ import org.springframework.social.security.SpringSocialConfigurer;
 @Configuration
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	
+    @Autowired
+    UserRepository userRepository;	
+    
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    	auth.userDetailsService((UserDetailsService) socialUsersDetailService());
+    }    
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -39,10 +53,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .and()
             .apply(getSpringSocialConfigurer())
         .and()
-            .csrf()
-            .csrfTokenRepository(csrfTokenRepository())
-        .and()
-            .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
+            .csrf().disable();
+            //.csrfTokenRepository(csrfTokenRepository())
+//        .and()
+//            .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
     }
 
     private CsrfTokenRepository csrfTokenRepository() {
@@ -53,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public SocialUserDetailsService socialUsersDetailService() {
-        return new SimpleSocialUsersDetailService(userDetailsService());
+        return new SimpleSocialUsersDetailService(userRepository);
     }
 
     @Bean

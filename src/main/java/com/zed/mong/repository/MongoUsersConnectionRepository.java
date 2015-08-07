@@ -16,7 +16,8 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 
-import com.zed.mong.model.UserSocialConnection;
+import com.zed.bagofood.model.UserSocialConnection;
+import com.zed.bagofood.repository.UserSocialConnectionRepository;
 
 public class MongoUsersConnectionRepository implements UsersConnectionRepository{
 	

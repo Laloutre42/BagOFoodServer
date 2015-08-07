@@ -18,7 +18,10 @@ package com.zed.bagofood.signup;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -28,9 +31,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
+import com.zed.bagofood.controller.UserController;
+
 @RestController
 @RequestMapping(value="/signup")
 public class SignupController {
+	
+    /**
+     * Class Logger
+     */
+    private static final Logger logger = LoggerFactory.getLogger(SignupController.class);	
 
 	//private final AccountRepository accountRepository;
     @Inject
@@ -38,12 +48,18 @@ public class SignupController {
 
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String signupForm(WebRequest request) {
+		
+		logger.info("[SignupController] Sign up");
+		
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
 		if (connection != null) {
-            return "ok "+connection.fetchUserProfile().getName();
+			logger.info("[SignupController] Sign up OK");
+			UserProfile userProfile = connection.fetchUserProfile();
+            return "ok "+userProfile.getName()+ " - "+userProfile.getEmail();
 			//request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
 			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
 		} else {
+			logger.info("[SignupController] Sign up KO");
             return "ko";
 			//return new SignupForm();
 		}
