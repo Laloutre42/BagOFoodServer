@@ -28,7 +28,7 @@ public class User implements SocialUserDetails {
     @NotBlank
     private String password;
 
-    private UserRole role;
+    private UserRole role = UserRole.USER;
 
     @NotBlank
     private String email;
@@ -37,7 +37,7 @@ public class User implements SocialUserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Arrays.asList(new UserRole[] { UserRole.USER });
+		return Arrays.asList(new UserRole[] { role });
 	}
 
 	@Override
