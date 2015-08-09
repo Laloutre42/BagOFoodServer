@@ -53,12 +53,10 @@ public class SignupController {
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
 		if (connection != null) {
 			logger.info("[SignupController] Sign up OK");
-			UserProfile userProfile = connection.fetchUserProfile();
-            return "ok "+userProfile.getName()+ " - "+userProfile.getEmail();
-			//request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
+            return "[SignupController] Sign up OK";
 		} else {
 			logger.info("[SignupController] Sign up KO");
-            return "ko";
+            return "[SignupController] Sign up NOT OK";
 		}
 	}
 
