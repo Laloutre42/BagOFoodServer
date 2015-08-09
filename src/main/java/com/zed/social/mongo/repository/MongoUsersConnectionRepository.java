@@ -1,4 +1,4 @@
-package com.zed.mong.repository;
+package com.zed.social.mongo.repository;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 
-import com.zed.mong.model.UserSocialConnection;
+import com.zed.social.mongo.model.UserSocialConnection;
 
 public class MongoUsersConnectionRepository implements UsersConnectionRepository{
 	

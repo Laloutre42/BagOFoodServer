@@ -18,7 +18,10 @@ package com.zed.bagofood.signup;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.social.connect.Connection;
+import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -28,52 +31,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
-@RestController
-@RequestMapping(value="/signup")
-public class SignupController {
+import com.zed.bagofood.controller.UserController;
 
-	//private final AccountRepository accountRepository;
+@RestController
+@RequestMapping(value="/api/signup")
+public class SignupController {
+	
+    /**
+     * Class Logger
+     */
+    private static final Logger logger = LoggerFactory.getLogger(SignupController.class);	
+
     @Inject
 	private ProviderSignInUtils providerSignInUtils;
 
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String signupForm(WebRequest request) {
+		
+		logger.info("[SignupController] Sign up");
+		
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
 		if (connection != null) {
-            return "ok "+connection.fetchUserProfile().getName();
+			logger.info("[SignupController] Sign up OK");
+			UserProfile userProfile = connection.fetchUserProfile();
+            return "ok "+userProfile.getName()+ " - "+userProfile.getEmail();
 			//request.setAttribute("message", new Message(MessageType.INFO, "Your " + StringUtils.capitalize(connection.getKey().getProviderId()) + " account is not associated with a Spring Social Showcase account. If you're new, please sign up."), WebRequest.SCOPE_REQUEST);
-			//return SignupForm.fromProviderUser(connection.fetchUserProfile());
 		} else {
+			logger.info("[SignupController] Sign up KO");
             return "ko";
-			//return new SignupForm();
 		}
 	}
-
-//	@RequestMapping(value="/signup", method=RequestMethod.POST)
-//	public String signup(@Valid SignupForm form, BindingResult formBinding, WebRequest request) {
-//		if (formBinding.hasErrors()) {
-//			return null;
-//		}
-//		Account account = createAccount(form, formBinding);
-//		if (account != null) {
-//			SignInUtils.signin(account.getUsername());
-//			providerSignInUtils.doPostSignUp(account.getUsername(), request);
-//			return "redirect:/";
-//		}
-//		return null;
-//	}
-
-	// internal helpers
-//
-//	private Account createAccount(SignupForm form, BindingResult formBinding) {
-//		try {
-//			Account account = new Account(form.getUsername(), form.getPassword(), form.getFirstName(), form.getLastName());
-//			accountRepository.createAccount(account);
-//			return account;
-//		} catch (UsernameAlreadyInUseException e) {
-//			formBinding.rejectValue("username", "user.duplicateUsername", "already in use");
-//			return null;
-//		}
-//	}
 
 }

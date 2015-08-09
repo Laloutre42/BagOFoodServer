@@ -56,14 +56,4 @@ public class UserController {
     public Principal user(Principal user) {
         return user;
     }
-    
-    @RequestMapping(value = "/testA", method = RequestMethod.GET)
-    public List<User> getAllUsersA() {
-        return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
-    }
-
-    @RequestMapping(value = "/testNA", method = RequestMethod.GET)
-    public List<User> getAllUsersNA() {
-        return StreamSupport.stream(userRepository.findAll().spliterator(), false).collect(Collectors.toList());
-    }
 }

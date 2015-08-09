@@ -3,14 +3,10 @@ package com.zed.bagofood.repository;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.zed.social.mongo.model.UserSocialConnection;
 import org.springframework.data.repository.CrudRepository;
 
-import com.zed.mong.model.UserSocialConnection;
-import org.springframework.stereotype.Repository;
-
-public interface UserSocialConnectionRepository extends MongoRepository<UserSocialConnection, String> {
+public interface UserSocialConnectionRepository extends CrudRepository<UserSocialConnection, String> {
 	
     List<UserSocialConnection> findByProviderIdAndProviderUserId(String providerId, String providerUserId);
     

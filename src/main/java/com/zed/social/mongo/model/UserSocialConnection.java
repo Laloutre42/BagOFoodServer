@@ -1,4 +1,4 @@
-package com.zed.mong.model;
+package com.zed.social.mongo.model;
 
 import lombok.Data;
 

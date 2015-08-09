@@ -40,7 +40,7 @@ public class Application implements CommandLineRunner {
     public void run(String... strings) throws Exception {
 
         //insertDataFromCiqualCsv();
-        insertUsers();
+        //insertUsers();
     }
 
     /**
@@ -74,15 +74,15 @@ public class Application implements CommandLineRunner {
         // Delete old values
         mongoTemplate.dropCollection(User.class);
 
-
-        User user = new User();
-        user.setName("Arnaud");
-        user.setPassword("password");
-        user.setEmail("Laloutre42@gmail.com");
-        user.setRole(UserRole.ADMIN);
-
-        mongoTemplate.insert(user);
-        logger.info("Insert: " + user);
+//
+//        User user = new User();
+//        user.setName("Arnaud");
+//        user.setPassword("password");
+//        user.setEmail("Laloutre42@gmail.com");
+//        user.setRole(UserRole.ADMIN);
+//
+//        mongoTemplate.insert(user);
+//        logger.info("Insert: " + user);
 
 
     }

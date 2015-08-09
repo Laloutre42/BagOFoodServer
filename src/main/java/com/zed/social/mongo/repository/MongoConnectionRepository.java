@@ -1,8 +1,9 @@
-package com.zed.mong.repository;
+package com.zed.social.mongo.repository;
 
 import java.util.*;
 
 import com.zed.bagofood.repository.UserSocialConnectionRepository;
+import com.zed.social.mongo.model.UserSocialConnection;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
@@ -15,8 +16,6 @@ import org.springframework.social.connect.NoSuchConnectionException;
 import org.springframework.social.connect.NotConnectedException;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-
-import com.zed.mong.model.UserSocialConnection;
 
 public class MongoConnectionRepository implements ConnectionRepository {
 
