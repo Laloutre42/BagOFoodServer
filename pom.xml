@@ -45,6 +45,9 @@
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-security</artifactId>
         </dependency>
+
+        <!--Spring social Facebook-->
+
         <dependency>
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-facebook</artifactId>
@@ -54,25 +57,13 @@
             <artifactId>spring-social-facebook-web</artifactId>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-jdbc</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.h2database</groupId>-->
-            <!--<artifactId>h2</artifactId>-->
-            <!--<version>1.4.187</version>-->
-        <!--</dependency>-->
+        <!--Spring social Google-->
 
-        <!--Spring security-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.security</groupId>-->
-            <!--<artifactId>spring-security-core</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.security</groupId>-->
-            <!--<artifactId>spring-security-config</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-google</artifactId>
+            <version>1.0.0.RELEASE</version>
+        </dependency>
 
         <!--Lombok-->
         <dependency>

@@ -28,6 +28,9 @@ import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import com.zed.bagofood.repository.UserRepository;
 import com.zed.bagofood.repository.UserSocialConnectionRepository;
 import com.zed.bagofood.signup.UserConnectionSignUp;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
 
 /**
  * Created by Arnaud on 04/08/2015.
@@ -50,6 +53,12 @@ public class SocialConfiguration extends SocialConfigurerAdapter {
                 env.getProperty("facebook.clientSecret"));
     	facebookConnectionFactory.setScope("email");
         cfConfig.addConnectionFactory(facebookConnectionFactory);
+
+        GoogleConnectionFactory googleConnectionFactory = new GoogleConnectionFactory(
+                env.getProperty("google.consumerKey"),
+                env.getProperty("google.consumerSecret"));
+        googleConnectionFactory.setScope("email");
+        cfConfig.addConnectionFactory(googleConnectionFactory);
     }
 
     @Override
@@ -65,6 +74,13 @@ public class SocialConfiguration extends SocialConfigurerAdapter {
     public Facebook facebook(ConnectionRepository repository) {
         Connection<Facebook> connection = repository.findPrimaryConnection(Facebook.class);
         return (connection != null) ? connection.getApi() : null;
+    }
+
+    @Bean
+    @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
+    public Google google(ConnectionRepository repository) {
+        Connection<Google> connection = repository.findPrimaryConnection(Google.class);
+        return (connection != null) ? connection.getApi() : new GoogleTemplate();
     }
 
     @Bean
