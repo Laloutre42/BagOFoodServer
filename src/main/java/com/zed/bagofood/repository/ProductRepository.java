@@ -5,7 +5,8 @@ package com.zed.bagofood.repository;
  */
 
 import com.zed.bagofood.model.Item;
-import com.zed.bagofood.model.Product;
+import com.zed.bagofood.model.product.Product;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
