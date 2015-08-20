@@ -27,7 +27,7 @@ public class AuthenticationCheckController {
     /**
      * Class Logger
      */
-    private static final Logger logger = LoggerFactory.getLogger(FacebookController.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticationCheckController.class);
 
     @Inject
     UserRepository userRepository;
@@ -39,12 +39,12 @@ public class AuthenticationCheckController {
 
         if ((SecurityContextHolder.getContext().getAuthentication() != null && SecurityContextHolder.getContext().getAuthentication().isAuthenticated()
                 && SecurityContextHolder.getContext().getAuthentication().getAuthorities().contains(ROLE_ANONYMOUS)) ) {
-            logger.info("[checkAuthentication] NOT authenticated");
+            logger.debug("[checkAuthentication] NOT authenticated");
 
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return null;
         } else {
-            logger.info("[checkAuthentication] Authenticated OK");
+            logger.debug("[checkAuthentication] Authenticated OK");
 
             String nameProviderId = SecurityContextHolder.getContext().getAuthentication().getName();
 

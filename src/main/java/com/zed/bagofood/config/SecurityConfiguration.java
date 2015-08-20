@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage("http://localhost:3000/signin")
         .and()
             .authorizeRequests()
-            .antMatchers("/api/authenticationCheck", "/auth/**").permitAll()
+            .antMatchers("/api/foodlist/**", "/api/authenticationCheck", "/auth/**").permitAll()
             .anyRequest().authenticated()
         .and()
             .logout()
