@@ -43,7 +43,7 @@ public class FoodListController {
 
     @RequestMapping(value = "/userId/{userId}", method = RequestMethod.GET)
     public List<Foodlist> getFoodListByUserId(@PathVariable String userId) {
-        return foodListRepository.findByUser_Id(userId);
+        return foodListRepository.findByUserId(new ObjectId(userId));
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
