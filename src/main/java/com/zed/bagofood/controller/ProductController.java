@@ -1,6 +1,6 @@
 package com.zed.bagofood.controller;
 
-import com.zed.bagofood.model.Product;
+import com.zed.bagofood.model.product.Product;
 import com.zed.bagofood.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
