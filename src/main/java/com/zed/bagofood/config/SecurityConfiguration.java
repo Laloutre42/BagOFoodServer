@@ -20,6 +20,7 @@ import org.springframework.social.UserIdSource;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.social.security.SpringSocialConfigurer;
+import org.springframework.beans.factory.annotation.Value;
 
 /**
  * Created by Arnaud on 03/08/2015.
@@ -35,6 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     	auth.userDetailsService((UserDetailsService) socialUsersDetailService());
     }    
+
+    @Value("${application.url}")
+    private String applicationUrl;    
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -42,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //            .httpBasic()
 //        .and()
             .formLogin()
-                .loginPage("http://localhost:3000/signin")
+                .loginPage(applicationUrl+"/signin")
         .and()
             .authorizeRequests()
             .antMatchers("/api/foodlist/**", "/api/authenticationCheck", "/auth/**").permitAll()
@@ -82,7 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private SpringSocialConfigurer getSpringSocialConfigurer() {
         final SpringSocialConfigurer config = new SpringSocialConfigurer();
         config.alwaysUsePostLoginUrl(true);
-        config.postLoginUrl("http://localhost:3000");
+        config.postLoginUrl(applicationUrl);
         return config;
     }
 }
