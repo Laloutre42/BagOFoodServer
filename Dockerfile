@@ -15,17 +15,20 @@ RUN  \
 WORKDIR /code
 
 # Prepare by downloading dependencies
-ADD pom.xml /code/pom.xml  
+COPY pom.xml /code/pom.xml  
 RUN ["mvn", "dependency:resolve"]  
 #RUN ["mvn", "verify"]
 
 # Adding source, compile and package into a fat jar
-ADD src /code/src  
+COPY src /code/src  
 RUN ["mvn", "clean"]
 RUN ["mvn", "package"]
 
 VOLUME /tmp
 
-ADD /code/target/BagOFoodServer*.jar /app.jar
-CMD bash -c 'touch /app.jar'
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+#COPY target /
+#COPY /target/BagOFoodServer*.jar app.jar
+#ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+
+CMD bash -c 'touch target/BagOFoodServer*.jar'
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","target/BagOFoodServer*.jar"]
