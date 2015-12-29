@@ -2,17 +2,16 @@ package com.zed.bagofood.data;
 
 import java.util.List;
 
+import com.zed.bagofood.model.product.ProductCiqual;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-import com.zed.bagofood.model.product.Product;
-
 public class ImportCsvDataFromCiqual2012 extends ImportCsvData{
 	
-	private final static String FILE_PATH = "F:/DEV/ProjectJs/BagOFoodGulp/data/Ciqual_2012/input.csv";
+	private final static String FILE_PATH = "C:/DEV/repo/BagOFoodGulp/data/Ciqual_2012/input.csv";
 	private final static String SEPARATOR = ",";
-	private final static String COLLECTION_NAME = "Product";
+	private final static String COLLECTION_NAME = "ProductCiqual";
 	
     /**
      * Class Logger
@@ -25,7 +24,7 @@ public class ImportCsvDataFromCiqual2012 extends ImportCsvData{
     
 	@Override
 	protected void createAndInsertProductModel(List<String> lineSplitted) {
-        Product product = Product.createProduct(lineSplitted);
+        ProductCiqual product = ProductCiqual.createProduct(lineSplitted);
         mongoTemplate.insert(product);
         logger.info("Insert: " + product);
 	}    

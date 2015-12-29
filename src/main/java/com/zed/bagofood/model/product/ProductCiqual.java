@@ -4,14 +4,77 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Arnaud on 18/05/2015.
  */
 @Data
 @Document
-public class Product{
+public class ProductCiqual {
+
+    private final static String idDesignation = "Id";
+    private final static String origgpcdDesignation = "ORIGGPCD";
+    private final static String origgpfrDesignation = "ORIGGPFR";
+    private final static String origfdcdDesignation = "ORIGFDCD";
+    private final static String origfdnmDesignation = "ORIGGPFR";
+    private final static String sodium_mg_100gDesignation = "ORIGGPFR";
+    private final static String magnesium_mg_100gDesignation = "ORIGGPFR";
+    private final static String phosphore_mg_100gDesignation = "ORIGGPFR";
+    private final static String potassium_mg_100gDesignation = "ORIGGPFR";
+    private final static String calcium_mg_100gDesignation = "ORIGGPFR";
+    private final static String manganese_mg_100gDesignation = "ORIGGPFR";
+    private final static String fer_mg_100gDesignation = "ORIGGPFR";
+    private final static String cuivre_mg_100gDesignation = "ORIGGPFR";
+    private final static String zinc_mg_100gDesignation = "ORIGGPFR";
+    private final static String selenium_ug_100gDesignation = "ORIGGPFR";
+    private final static String iode_ug_100gDesignation = "ORIGGPFR";
+    private final static String proteines_g_100gDesignation = "ORIGGPFR";
+    private final static String proteines_brutes_n_x_6_25_g_100gDesignation = "ORIGGPFR";
+    private final static String glucides_g_100gDesignation = "ORIGGPFR";
+    private final static String sucres_g_100gDesignation = "ORIGGPFR";
+    private final static String energie_reglement_ue_1169_2011_kj_100gDesignation = "ORIGGPFR";
+    private final static String energie_reglement_ue_1169_2011_kcal_100gDesignation = "ORIGGPFR";
+    private final static String amidon_g_100gDesignation = "ORIGGPFR";
+    private final static String energie_n_x_facteur_jones_avec_fibres_kj_100gDesignation = "ORIGGPFR";
+    private final static String energie_n_x_facteur_jones_avec_fibres_kcal_100gDesignation = "ORIGGPFR";
+    private final static String polyols_totaux_g_100gDesignation = "ORIGGPFR";
+    private final static String fibres_g_100gDesignation = "ORIGGPFR";
+    private final static String eau_g_100gDesignation = "ORIGGPFR";
+    private final static String lipides_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_satures_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_monoinsatures_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_polyinsatures_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_4_0_butyrique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_6_0_caproique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_8_0_caprylique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_10_0_caprique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_12_0_laurique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_14_0_myristique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_16_0_palmitique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_18_0_stearique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_18_1_9c_n_9_oleique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_18_2_9c_12c_n_6_linoleique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_18_3_c9_c12_c15_n_3_alpha_linolenique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_20_4_5c_8c_11c_14c_n_6_arachidonique_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_20_5_5c_8c_11c_14c_17c_n_3_epa_g_100gDesignation = "ORIGGPFR";
+    private final static String ag_22_6_4c_7c_10c_13c_16c_19c_n_3_dha_g_100gDesignation = "ORIGGPFR";
+    private final static String retinol_ug_100gDesignation = "ORIGGPFR";
+    private final static String beta_carotene_ug_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_d_ug_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_e_mg_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_k_ug_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_c_mg_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_b1_ou_thiamine_mg_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_b2_ou_riboflavine_mg_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_b3_ou_pp_ou_niacine_mg_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_b5_ou_acide_pantothenique_mg_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_b6_mg_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_b12_ug_100gDesignation = "ORIGGPFR";
+    private final static String vitamine_b9_ou_folates_totaux_ug_100gDesignation = "ORIGGPFR";
+    private final static String alcool_g_100gDesignation = "ORIGGPFR";
+    private final static String acides_organiques_g_100gDesignation = "ORIGGPFR";
+    private final static String cholesterol_mg_100gDesignation = "ORIGGPFR";
 
     @Id
     private String id;
@@ -77,7 +140,7 @@ public class Product{
     private double acides_organiques_g_100g;
     private double cholesterol_mg_100g;
 
-    public Product(){
+    public ProductCiqual(){
 
     }
 
@@ -86,10 +149,10 @@ public class Product{
      * @param listFields
      * @return
      */
-    public static Product createProduct(List<String> listFields){
+    public static ProductCiqual createProduct(List<String> listFields){
 
         int i=0;
-        Product p = new Product();
+        ProductCiqual p = new ProductCiqual();
 
         p.setOriggpcd(ProductOperations.parseDouble(listFields.get(i++)));
         p.setOriggpfr(listFields.get(i++));
@@ -155,6 +218,17 @@ public class Product{
         p.setCholesterol_mg_100g(ProductOperations.parseDouble(listFields.get(i++)));
 
         return p;
+    }
+
+    public Collection<ProductField> getProductCiqualWithDesignation(){
+
+        Collection<ProductField> productCiqualFields = new ArrayList<>();
+
+        productCiqualFields.add(new ProductField(idDesignation, this.getId()));
+        productCiqualFields.add(new ProductField(origgpcdDesignation, this.getOriggpcd()));
+        productCiqualFields.add(new ProductField(origgpfrDesignation, this.getOriggpfr()));
+
+        return productCiqualFields;
     }
 
 }

@@ -89,3 +89,4 @@ local.properties
 # Target and class
 */target/**
 *.class
+target/

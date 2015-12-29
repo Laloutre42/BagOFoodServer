@@ -1,5 +1,6 @@
 package com.zed.bagofood;
 
+import com.zed.bagofood.data.ImportCsvDataFromCiqual2012;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.zed.bagofood.data.ImportCsvData;
@@ -33,9 +35,9 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-    	
-//    	ImportCsvData importCsvData = new ImportCsvDataFromOpenFoodFacts(mongoTemplate);
-//    	importCsvData.insertDataIntoDBFromCsvFile();
+
+    	ImportCsvData importCsvData = new ImportCsvDataFromCiqual2012(mongoTemplate);
+    	importCsvData.insertDataIntoDBFromCsvFile();
     }
 
 }
