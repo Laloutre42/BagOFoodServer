@@ -49,7 +49,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginPage(applicationUrl+"/signin")
         .and()
             .authorizeRequests()
-            .antMatchers("/api/foodlist/**", "/api/authenticationCheck", "/auth/**").permitAll()
+            .antMatchers(
+                    "/api/foodlist/**",
+                    "/api/foodlistComputation/**",
+                    "/api/product/**",
+                    "/api/authenticationCheck",
+                    "/auth/**")
+                .permitAll()
             .anyRequest().authenticated()
         .and()
             .logout()
