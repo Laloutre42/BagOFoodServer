@@ -3,10 +3,11 @@ package com.zed.bagofood.repository;
 import java.util.Collection;
 import java.util.List;
 
-import com.zed.social.mongo.model.UserSocialConnection;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserSocialConnectionRepository extends CrudRepository<UserSocialConnection, String> {
+import com.zed.bagofood.model.UserSocialConnection;
+
+public interface UserSocialConnectionRepository extends CrudRepository<UserSocialConnection, Long> {
 	
     List<UserSocialConnection> findByProviderIdAndProviderUserId(String providerId, String providerUserId);
     

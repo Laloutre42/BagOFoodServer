@@ -1,24 +1,29 @@
 package com.zed.bagofood.model;
 
-import lombok.Data;
+import java.util.Arrays;
+import java.util.Collection;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.social.security.SocialUserDetails;
 
-import java.util.Arrays;
-import java.util.Collection;
+import lombok.Data;
 
 /**
  * Created by Arnaud on 03/05/2015.
  */
 @Data
-@Document
+@Entity
 public class User implements SocialUserDetails {
 
     @Id
-    private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     @NotBlank
     private String name;

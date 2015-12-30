@@ -1,9 +1,12 @@
 package com.zed.bagofood.view;
 
-import com.zed.bagofood.model.Foodlist;
-import com.zed.bagofood.model.Item;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
+import com.zed.bagofood.model.Foodlist;
 
 /**
  * Created by Arnaud on 07/11/2015.
@@ -23,33 +26,34 @@ public class FoodListDataInformations {
      */
     private void computeInformationsFromFoodList(Foodlist foodlist) {
 
-        if (foodlist != null) {
-
-            List<Item> items = foodlist.getItemList();
-
-            if (!items.equals(null)) {
-
-
-                FoodListCategoryDataInformations foodListAllDataInformations = new FoodListCategoryDataInformations("All");
-                for (Item item : items) {
-
-                    FoodListCategoryDataInformations foodListCategoryDataInformations;
-                    if (item.getCategory() != null && categoryDataInformationsMap.containsKey(item.getCategory())) {
-                        foodListCategoryDataInformations = categoryDataInformationsMap.get(item.getCategory());
-                    } else {
-                        foodListCategoryDataInformations = new FoodListCategoryDataInformations(item.getCategory());
-                    }
-
-                    // Compute for item category
-                    addValuesFromItem(foodListCategoryDataInformations, item);
-                    // Compute for all categories
-                    addValuesFromItem(foodListAllDataInformations, item);
-
-                    categoryDataInformationsMap.put(item.getCategory(), foodListCategoryDataInformations);
-                }
-                categoryDataInformationsMap.put(foodListAllDataInformations.getCategory(), foodListAllDataInformations);
-            }
-        }
+    	// TODO
+//        if (foodlist != null) {
+//
+//            List<Item> items = foodlist.getItemList();
+//
+//            if (!items.equals(null)) {
+//
+//
+//                FoodListCategoryDataInformations foodListAllDataInformations = new FoodListCategoryDataInformations("All");
+//                for (Item item : items) {
+//
+//                    FoodListCategoryDataInformations foodListCategoryDataInformations;
+//                    if (item.getCategory() != null && categoryDataInformationsMap.containsKey(item.getCategory())) {
+//                        foodListCategoryDataInformations = categoryDataInformationsMap.get(item.getCategory());
+//                    } else {
+//                        foodListCategoryDataInformations = new FoodListCategoryDataInformations(item.getCategory());
+//                    }
+//
+//                    // Compute for item category
+//                    addValuesFromItem(foodListCategoryDataInformations, item);
+//                    // Compute for all categories
+//                    addValuesFromItem(foodListAllDataInformations, item);
+//
+//                    categoryDataInformationsMap.put(item.getCategory(), foodListCategoryDataInformations);
+//                }
+//                categoryDataInformationsMap.put(foodListAllDataInformations.getCategory(), foodListAllDataInformations);
+//            }
+//        }
     }
 
     /**
@@ -77,12 +81,13 @@ public class FoodListDataInformations {
         return result;
     }
 
-    public static void addValuesFromItem(FoodListCategoryDataInformations foodListCategoryDataInformations, Item item) {
-        foodListCategoryDataInformations.setTotalWeight(foodListCategoryDataInformations.getTotalWeight() + item.getWeight());
-        foodListCategoryDataInformations.setTotalEnergy(foodListCategoryDataInformations.getTotalEnergy() + (item.getWeight() * item.getEnergyFor100() / 100));
-        foodListCategoryDataInformations.setTotalEnergy100g(foodListCategoryDataInformations.getTotalEnergy100g() + item.getEnergyFor100());
-        foodListCategoryDataInformations.setNbItems(foodListCategoryDataInformations.getNbItems() + 1);
-        foodListCategoryDataInformations.setAveragelEnergy100g(foodListCategoryDataInformations.getTotalEnergy100g() / foodListCategoryDataInformations.getNbItems());
-    }
+    // TODO
+//    public static void addValuesFromItem(FoodListCategoryDataInformations foodListCategoryDataInformations, Item item) {
+//        foodListCategoryDataInformations.setTotalWeight(foodListCategoryDataInformations.getTotalWeight() + item.getWeight());
+//        foodListCategoryDataInformations.setTotalEnergy(foodListCategoryDataInformations.getTotalEnergy() + (item.getWeight() * item.getEnergyFor100() / 100));
+//        foodListCategoryDataInformations.setTotalEnergy100g(foodListCategoryDataInformations.getTotalEnergy100g() + item.getEnergyFor100());
+//        foodListCategoryDataInformations.setNbItems(foodListCategoryDataInformations.getNbItems() + 1);
+//        foodListCategoryDataInformations.setAveragelEnergy100g(foodListCategoryDataInformations.getTotalEnergy100g() / foodListCategoryDataInformations.getNbItems());
+//    }
 
 }

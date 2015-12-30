@@ -1,18 +1,21 @@
-package com.zed.social.mongo.model;
+package com.zed.bagofood.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.Data;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 @Data
-@Document
+@Entity
 public class UserSocialConnection {
 	
     @Id
-    private String id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 	
-    private String userId;
+    private long userId;
     private String providerId;
     private String providerUserId;
     private int rank;
@@ -24,7 +27,7 @@ public class UserSocialConnection {
     private String refreshToken;
     private long expireTime;
 
-    public UserSocialConnection(String userId, String providerId, String providerUserId, int rank, String displayName, String profileUrl,
+    public UserSocialConnection(long userId, String providerId, String providerUserId, int rank, String displayName, String profileUrl,
                                 String imageUrl, String accessToken, String secret, String refreshToken, Long expireTime) {
         this.userId = userId;
         this.providerId = providerId;

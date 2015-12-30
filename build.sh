@@ -9,3 +9,5 @@ docker build -t laloutre42/docker-bagofood-server .
 docker stop bagofood-server
 docker rm bagofood-server
 docker run --name bagofood-server -d -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod --link bagofood-mongo:mongo laloutre42/docker-bagofood-server
+
+#mvn spring-boot:run -Drun.arguments="import-ciqual-2012"

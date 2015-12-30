@@ -90,3 +90,4 @@ local.properties
 */target/**
 *.class
 target/
+data/

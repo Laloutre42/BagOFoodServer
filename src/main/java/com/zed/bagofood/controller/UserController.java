@@ -23,37 +23,37 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/api/user")
 public class UserController {
 
-    /**
-     * Class Logger
-     */
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	/**
+	 * Class Logger
+	 */
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-    UserRepository userRepository;
+	@Autowired
+	UserRepository userRepository;
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public User login(@RequestBody User user) {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public User login(@RequestBody User user) {
 
-        User userInDb = userRepository.findByNameAndPassword(user.getName(), user.getPassword());
-        if (userInDb == null){
-            throw new InternalError("Invalid user name or password");
-        }
-        else {
-            return userInDb;
-        }
-    }
+		User userInDb = userRepository.findByNameAndPassword(user.getName(), user.getPassword());
+		if (userInDb == null) {
+			throw new InternalError("Invalid user name or password");
+		}
+		else {
+			return userInDb;
+		}
+	}
 
-    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
-    public User signUp(@Valid @RequestBody User user) {
+	@RequestMapping(value = "/signUp", method = RequestMethod.POST)
+	public User signUp(@Valid @RequestBody User user) {
 
-        if ((user.getId() != null && userRepository.exists(user.getId())) || (userRepository.findByName(user.getName()) != null)){
-            throw new InternalError("User already exist");
-        }
-        return userRepository.save(user);
-    }
+		if ((user.getId() > 0 && userRepository.exists(user.getId())) || (userRepository.findByName(user.getName()) != null)) {
+			throw new InternalError("User already exist");
+		}
+		return userRepository.save(user);
+	}
 
-    @RequestMapping("/principalUser")
-    public Principal user(Principal user) {
-        return user;
-    }
+	@RequestMapping("/principalUser")
+	public Principal user(Principal user) {
+		return user;
+	}
 }

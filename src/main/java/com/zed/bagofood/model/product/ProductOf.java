@@ -1,13 +1,14 @@
 package com.zed.bagofood.model.product;
 
-import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import lombok.Data;
+
 @Data
-@Document
+@Entity
 public class ProductOf {
 
     @Id

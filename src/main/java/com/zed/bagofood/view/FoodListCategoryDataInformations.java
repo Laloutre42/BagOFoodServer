@@ -1,10 +1,6 @@
 package com.zed.bagofood.view;
 
-import com.zed.bagofood.model.Foodlist;
-import com.zed.bagofood.model.Item;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * Created by Arnaud on 07/11/2015.

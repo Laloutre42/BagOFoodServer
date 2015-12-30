@@ -1,20 +1,18 @@
 package com.zed.bagofood.repository;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
 /**
  * Created by Arnaud on 30/04/2015.
  */
 
 import com.zed.bagofood.model.Foodlist;
-import com.zed.bagofood.model.User;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+public interface FoodListRepository extends CrudRepository<Foodlist, Long> {
 
-public interface FoodListRepository extends CrudRepository<Foodlist, String> {
-
-    @Query("{ 'user._id' : ?0 }")
-    List<Foodlist> findByUserId(ObjectId userId);
+	@Query("SELECT f FROM Foodlist f WHERE f.user.id = :userId")
+    List<Foodlist> findByUserId(String userId);
 }

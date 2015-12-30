@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface ProductCiqualRepository extends CrudRepository<ProductCiqual, String> {
+public interface ProductCiqualRepository extends CrudRepository<ProductCiqual, Long> {
 
     List<ProductCiqual> findFirst100ByOrigfdnmLikeIgnoreCaseOrderByOrigfdnmAsc(String origfdnm);
 }

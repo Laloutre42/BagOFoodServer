@@ -42,13 +42,13 @@ public class FoodListComputationController {
      * @return
      */
     @RequestMapping(value = "/statisticsTable/{id}", method = RequestMethod.GET)
-    public Collection<FoodListCategoryDataInformations> getStatisticsTableFromFoodListById(@PathVariable String id) {
+    public Collection<FoodListCategoryDataInformations> getStatisticsTableFromFoodListById(@PathVariable long id) {
         FoodListDataInformations foodListDataInformations = new FoodListDataInformations(foodListRepository.findOne(id));
         return foodListDataInformations.statisticsTable();
     }
 
     @RequestMapping(value = "/statisticsChartHisto/{id}", method = RequestMethod.GET)
-    public Map<String, List<Object>> getStatisticsChartHistoFromFoodListById(@PathVariable String id) {
+    public Map<String, List<Object>> getStatisticsChartHistoFromFoodListById(@PathVariable long id) {
         FoodListDataInformations foodListDataInformations = new FoodListDataInformations(foodListRepository.findOne(id));
         return foodListDataInformations.statisticsChartHisto();
     }

@@ -40,12 +40,12 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-     public ProductCiqual getProductById(@PathVariable String id) {
+     public ProductCiqual getProductById(@PathVariable long id) {
         return productRepository.findOne(id);
     }
 
     @RequestMapping(value = "/designation/{id}", method = RequestMethod.GET)
-    public Collection<ProductField> getProductByIdWithDesignation(@PathVariable String id) {
+    public Collection<ProductField> getProductByIdWithDesignation(@PathVariable long id) {
         ProductCiqual product = productRepository.findOne(id);
         if (product != null){
             return product.getProductCiqualWithDesignation();

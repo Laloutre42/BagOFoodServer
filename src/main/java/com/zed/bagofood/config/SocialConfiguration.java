@@ -1,8 +1,8 @@
 package com.zed.bagofood.config;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 
-import com.zed.social.mongo.repository.MongoUsersConnectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.encrypt.Encryptors;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
@@ -18,19 +17,16 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
-import org.springframework.social.connect.web.ConnectController;
+import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.web.ProviderSignInUtils;
-import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
-
-import com.zed.bagofood.repository.UserRepository;
-import com.zed.bagofood.repository.UserSocialConnectionRepository;
-import com.zed.bagofood.signup.UserConnectionSignUp;
 import org.springframework.social.google.api.Google;
 import org.springframework.social.google.api.impl.GoogleTemplate;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
+
+import com.zed.bagofood.repository.UserRepository;
+import com.zed.bagofood.signup.UserConnectionSignUp;
 
 /**
  * Created by Arnaud on 04/08/2015.
@@ -39,12 +35,12 @@ import org.springframework.social.google.connect.GoogleConnectionFactory;
 @EnableSocial
 public class SocialConfiguration extends SocialConfigurerAdapter {
 	
-    @Autowired
+	@Inject
     UserRepository userRepository;	
 	
-    @Autowired
-	UserSocialConnectionRepository userSocialConnectionRepository;
-
+    @Inject
+	DataSource dataSource;
+    
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
     	
@@ -64,7 +60,7 @@ public class SocialConfiguration extends SocialConfigurerAdapter {
     @Override
     @Scope(value="singleton", proxyMode=ScopedProxyMode.INTERFACES)    
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        MongoUsersConnectionRepository usersConnectionRepository = new MongoUsersConnectionRepository(userSocialConnectionRepository, connectionFactoryLocator, Encryptors.noOpText());
+    	JdbcUsersConnectionRepository usersConnectionRepository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
         usersConnectionRepository.setConnectionSignUp(new UserConnectionSignUp(userRepository));
         return usersConnectionRepository;
     }
