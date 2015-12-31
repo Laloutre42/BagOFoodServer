@@ -9,10 +9,9 @@ import lombok.Data;
 
 @Data
 @Entity
-public abstract class Product {
+public abstract class ProductCustom extends Product{
 
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	protected long id;
+	private String name;
+	private double energie_kcal_100g;
+	
 }

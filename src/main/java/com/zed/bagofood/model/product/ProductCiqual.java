@@ -79,11 +79,6 @@ public class ProductCiqual extends Product {
 	private final static String alcool_g_100gDesignation = "ORIGGPFR";
 	private final static String acides_organiques_g_100gDesignation = "ORIGGPFR";
 	private final static String cholesterol_mg_100gDesignation = "ORIGGPFR";
-
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
 	
 	private double origgpcd;
 	private String origgpfr;

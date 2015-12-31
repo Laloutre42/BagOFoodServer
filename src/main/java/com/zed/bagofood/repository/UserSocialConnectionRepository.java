@@ -5,17 +5,17 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.zed.bagofood.model.UserSocialConnection;
+import com.zed.bagofood.model.UserConnection;
 
-public interface UserSocialConnectionRepository extends CrudRepository<UserSocialConnection, Long> {
+public interface UserSocialConnectionRepository extends CrudRepository<UserConnection, Long> {
 	
-    List<UserSocialConnection> findByProviderIdAndProviderUserId(String providerId, String providerUserId);
+    List<UserConnection> findByProviderIdAndProviderUserId(String providerId, String providerUserId);
     
-    List<UserSocialConnection> findByProviderIdAndProviderUserIdIn(String providerId, Collection<String> providerUserIds);
+    List<UserConnection> findByProviderIdAndProviderUserIdIn(String providerId, Collection<String> providerUserIds);
 
-	List<UserSocialConnection> findByUserIdAndProviderId(String userId, String providerId);
+	List<UserConnection> findByUserIdAndProviderId(String userId, String providerId);
 
-	UserSocialConnection findByUserIdAndProviderIdAndProviderUserId(String userId, String providerId, String providerUserId);
+	UserConnection findByUserIdAndProviderIdAndProviderUserId(String userId, String providerId, String providerUserId);
 
-	List<UserSocialConnection> findByUserId(String userId);    
+	List<UserConnection> findByUserId(String userId);    
 }

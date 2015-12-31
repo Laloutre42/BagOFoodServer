@@ -27,7 +27,7 @@ public class UserConnectionSignUp implements ConnectionSignUp {
 
         User user = new User();
         user.setName(profile.getName());
-        user.setPassword("");
+        user.setPassword("?");
         user.setEmail(profile.getEmail());
         user.setRole(UserRole.USER);
         user.setProviderId(connection.getKey().getProviderId());

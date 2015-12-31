@@ -12,5 +12,7 @@ import java.util.List;
 
 public interface ProductCiqualRepository extends CrudRepository<ProductCiqual, Long> {
 
-    List<ProductCiqual> findFirst100ByOrigfdnmLikeIgnoreCaseOrderByOrigfdnmAsc(String origfdnm);
+    List<ProductCiqual> findFirst100ByOrigfdnmContainingIgnoreCaseOrderByOrigfdnmAsc(String origfdnm);
+    
+    List<ProductCiqual> findByOrigfdnmContaining(String origfdnm);
 }

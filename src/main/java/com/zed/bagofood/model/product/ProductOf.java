@@ -9,10 +9,8 @@ import lombok.Data;
 
 @Data
 @Entity
-public class ProductOf {
+public class ProductOf extends Product{
 
-    @Id
-    private String id;
     private String code;
     private String url;
     private String creator;

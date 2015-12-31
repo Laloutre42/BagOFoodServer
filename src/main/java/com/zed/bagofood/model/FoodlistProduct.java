@@ -1,14 +1,13 @@
 package com.zed.bagofood.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import com.zed.bagofood.model.product.Product;
 
 import lombok.Data;
 
@@ -17,20 +16,26 @@ import lombok.Data;
  */
 @Data
 @Entity
-public class Foodlist {
+public class FoodlistProduct {
 
     @Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
-    private String name;
-    
-    private String description;
+    @ManyToOne
+    @JoinColumn
+    private Foodlist foodlist;
     
     @ManyToOne
-    private User user;
+    @JoinColumn
+    private Product product;
     
-    @OneToMany(mappedBy = "foodlist")
-    private List<FoodlistProduct> foodListProductList = new ArrayList<>(0);
+    private double weight;
+    
+    private String category;
+    
+    @ManyToOne
+    @JoinColumn
+    private Catalog catalog;
 
 }

@@ -26,35 +26,35 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/api/product")
 public class ProductController {
 
-    /**
-     * Class Logger
-     */
-    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+	/**
+	 * Class Logger
+	 */
+	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
-    @Autowired
-    ProductCiqualRepository productRepository;
+	@Autowired
+	ProductCiqualRepository productRepository;
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public List<ProductCiqual> getAllProduct() {
-        return StreamSupport.stream(productRepository.findAll().spliterator(), false).collect(Collectors.toList());
-    }
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public List<ProductCiqual> getAllProduct() {
+		return StreamSupport.stream(productRepository.findAll().spliterator(), false).collect(Collectors.toList());
+	}
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-     public ProductCiqual getProductById(@PathVariable long id) {
-        return productRepository.findOne(id);
-    }
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ProductCiqual getProductById(@PathVariable long id) {
+		return productRepository.findOne(id);
+	}
 
-    @RequestMapping(value = "/designation/{id}", method = RequestMethod.GET)
-    public Collection<ProductField> getProductByIdWithDesignation(@PathVariable long id) {
-        ProductCiqual product = productRepository.findOne(id);
-        if (product != null){
-            return product.getProductCiqualWithDesignation();
-        }
-        return new ArrayList<>();
-    }
+	@RequestMapping(value = "/designation/{id}", method = RequestMethod.GET)
+	public Collection<ProductField> getProductByIdWithDesignation(@PathVariable long id) {
+		ProductCiqual product = productRepository.findOne(id);
+		if (product != null) {
+			return product.getProductCiqualWithDesignation();
+		}
+		return new ArrayList<>();
+	}
 
-    @RequestMapping(value = "/origfdnm/{origfdnm}", method = RequestMethod.GET)
-    public List<ProductCiqual> getFoodListByOrigfdnm(@PathVariable String origfdnm) {
-        return productRepository.findFirst100ByOrigfdnmLikeIgnoreCaseOrderByOrigfdnmAsc(origfdnm);
-    }
+	@RequestMapping(value = "/origfdnm/{origfdnm}", method = RequestMethod.GET)
+	public List<ProductCiqual> getFoodListByOrigfdnm(@PathVariable String origfdnm) {
+		return productRepository.findFirst100ByOrigfdnmContainingIgnoreCaseOrderByOrigfdnmAsc(origfdnm);
+	}
 }
